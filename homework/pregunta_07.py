@@ -6,6 +6,8 @@ utilizar pandas, numpy o scipy.
 """
 
 
+import os
+
 def pregunta_07():
     """
     Retorne una lista de tuplas que asocien las columnas 0 y 1. Cada tupla
@@ -25,3 +27,17 @@ def pregunta_07():
      (9, ['A', 'B', 'E', 'A', 'A', 'C'])]
 
     """
+    base_path = os.path.dirname(__file__)
+    data_path = os.path.join(base_path, "../files/input/data.csv")
+    asociaciones = {}
+    with open(data_path, "r") as file:
+        for line in file:
+            columns = line.strip().split('\t')
+            letra = columns[0]
+            valor = int(columns[1])
+            if valor not in asociaciones:
+                asociaciones[valor] = []
+            asociaciones[valor].append(letra)
+    resultado = sorted(asociaciones.items())
+    return resultado
+print(pregunta_07())

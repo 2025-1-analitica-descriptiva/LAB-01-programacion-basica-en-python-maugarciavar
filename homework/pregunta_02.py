@@ -5,7 +5,6 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
-
 def pregunta_02():
     """
     Retorne la cantidad de registros por cada letra de la primera columna como
@@ -15,3 +14,14 @@ def pregunta_02():
     [('A', 8), ('B', 7), ('C', 5), ('D', 6), ('E', 14)]
 
     """
+    import os
+    base_path = os.path.dirname(__file__)
+    data_path = os.path.join(base_path, "../files/input/data.csv")
+    conteo = {}
+    with open(data_path, "r") as file:
+        for line in file:
+            letra = line.strip().split('\t')[0]
+            conteo[letra] = conteo.get(letra, 0) + 1
+    resultado = sorted(conteo.items())
+    return resultado
+print(pregunta_02())

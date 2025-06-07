@@ -5,6 +5,7 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+import os
 
 def pregunta_06():
     """
@@ -26,3 +27,23 @@ def pregunta_06():
      ('jjj', 5, 17)]
 
     """
+    base_path = os.path.dirname(__file__)
+    data_path = os.path.join(base_path, "../files/input/data.csv")
+    valores = {}
+    with open(data_path, "r") as file:
+        for line in file:
+            columns = line.strip().split('\t')
+            col5 = columns[4].split(',')
+            for par in col5:
+                clave, valor = par.split(':')
+                valor = int(valor)
+                if clave not in valores:
+                    valores[clave] = []
+                valores[clave].append(valor)
+    resultado = []
+    for clave in sorted(valores.keys()):
+        minimo = min(valores[clave])
+        maximo = max(valores[clave])
+        resultado.append((clave, minimo, maximo))
+    return resultado
+print(pregunta_06())

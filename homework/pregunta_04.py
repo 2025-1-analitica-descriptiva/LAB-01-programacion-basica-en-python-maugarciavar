@@ -6,6 +6,8 @@ utilizar pandas, numpy o scipy.
 """
 
 
+import os
+
 def pregunta_04():
     """
     La columna 3 contiene una fecha en formato `YYYY-MM-DD`. Retorne la
@@ -26,3 +28,15 @@ def pregunta_04():
      ('12', 3)]
 
     """
+    base_path = os.path.dirname(__file__)
+    data_path = os.path.join(base_path, "../files/input/data.csv")
+    conteo_meses = {}
+    with open(data_path, "r") as file:
+        for line in file:
+            columns = line.strip().split('\t')
+            fecha = columns[2]
+            mes = fecha.split('-')[1]
+            conteo_meses[mes] = conteo_meses.get(mes, 0) + 1
+    resultado = sorted(conteo_meses.items())
+    return resultado
+print(pregunta_04())
